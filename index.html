@@ -101,7 +101,6 @@
         .text-stroke-only {
             -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); 
             color: var(--tw-colors-dark_text);
-            /* Added whitespace-nowrap in HTML to prevent horizontal wrapping issues */
         }
         /* Hover effect for main name */
         .hero-name:hover .text-stroke-only {
@@ -110,28 +109,26 @@
         }
         /* --- Text Rotator Fix --- */
         .text-rotator-container {
-            /* Increased height margin to ensure no vertical clipping */
-            height: 1.2em; 
+            /* Masking container settings */
+            height: 1.1em; /* Reduced height to tightly fit single line */
             overflow: hidden;
-            line-height: 0.85; 
-            background-color: var(--tw-colors-white_bg); /* Essential for masking */
-            z-index: 10;
+            line-height: 1.1; /* Adjusted for exact fitting */
+            background-color: var(--tw-colors-white_bg); 
+            position: relative; 
+            z-index: 20; 
+            /* Removed vertical padding to avoid clipping issues */
+            padding: 0; 
         }
         .text-rotator-list {
             /* Animation applied via CSS */
-            animation: slide-up 10s cubic-bezier(0.83, 0, 0.17, 1) infinite;
+            animation: slide-up 10s steps(4, end) infinite; /* Use steps for precise jumps */
+            overflow: hidden; /* Added for clipping */
+            will-change: transform; /* GPU acceleration hint */
         }
         @keyframes slide-up {
-            /* 4 Phrases * 2.5s each = 10s cycle */
+            /* Removed custom keyframe, steps() function animates in fixed steps */
             0% { transform: translateY(0%); }
-            20% { transform: translateY(0%); } 
-            25% { transform: translateY(-25%); }
-            45% { transform: translateY(-25%); } 
-            50% { transform: translateY(-50%); }
-            70% { transform: translateY(-50%); } 
-            75% { transform: translateY(-75%); }
-            95% { transform: translateY(-75%); } 
-            100% { transform: translateY(0%); }
+            100% { transform: translateY(-100%); }
         }
     </style>
 </head>
@@ -141,7 +138,11 @@
 
     <nav class="fixed w-full z-40 top-0 left-0 p-6 flex justify-between items-center bg-white_bg/80 backdrop-blur-sm shadow-sm" role="navigation">
         <div class="font-mono text-sm tracking-tighter font-bold text-dark_text">
-            AITRON
+            <img src="https://aitron-images.ams3.cdn.digitaloceanspaces.com/aitron-final-logo.svg" 
+                 alt="Aitron Logo" 
+                 class="h-7 inline-block align-middle" 
+                 style="width: auto; max-width: 100px;" 
+            />
         </div>
         <div class="hidden md:flex gap-8 font-mono text-xs font-bold text-dark_text">
             <a href="#services" class="hover:text-aitron_accent transition-colors">[ CORE_OFFERINGS ]</a>
