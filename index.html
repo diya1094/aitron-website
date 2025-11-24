@@ -525,20 +525,20 @@
             renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
-            // --- 1. The Holographic AI Core (CYAN) ---
+            // --- 1. The Holographic Infrastructure Hub (CYAN) ---
             const aiCoreMaterial = new THREE.ShaderMaterial({
                 vertexShader: document.getElementById('vertexShader').textContent,
                 fragmentShader: document.getElementById('fragmentShader').textContent,
                 uniforms: {
-                    uColor: { value: new THREE.Color('#00E5FF') }, // ELECTRIC CYAN AI CORE
+                    uColor: { value: new THREE.Color('#00E5FF') }, // ELECTRIC CYAN HUB
                     uLightPos: { value: new THREE.Vector3(10, 5, 5) },
                     uTime: { value: 0.0 }
                 },
-                wireframe: true
+                wireframe: true // Looks high-tech/holographic
             });
 
-            // Using OctahedronGeometry for an abstract data core look
-            const coreGeometry = new THREE.OctahedronGeometry(2, 2);
+            // CHANGED to IcosahedronGeometry (20 faces, highly connected, looks like a hub)
+            const coreGeometry = new THREE.IcosahedronGeometry(2, 1);
             const coreMesh = new THREE.Mesh(coreGeometry, aiCoreMaterial);
             scene.add(coreMesh);
 
@@ -555,7 +555,7 @@
                 side: THREE.DoubleSide
             });
 
-            // Function to get a random point on the Octahedron's bounding sphere
+            // Function to get a random point on the Icosahedron's bounding sphere
             const getPointOnSphere = (radius) => {
                 const phi = Math.acos(-1 + (2 * Math.random()));
                 const theta = Math.sqrt(Math.PI * 250) * phi;
