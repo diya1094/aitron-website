@@ -176,7 +176,7 @@
                             <li class="block text-stroke-only transition-all duration-500 whitespace-nowrap">PER TONNE FOR CHEMICAL INDUSTRY</li>
                         </ul>
                     </div>
-                </h1>
+                </h1>   
 
                 <div class="flex flex-col md:flex-row gap-10 mt-8">
                     <p class="font-mono text-sm md:text-base text-gray-700 max-w-lg leading-relaxed reveal-text border-l-2 border-aitron_secondary pl-6">
@@ -690,6 +690,107 @@
                 },
                 x: Math.PI * 0.5,
                 y: Math.PI * 2
+            });
+
+            // Service Cards Animation - Stagger from bottom
+            gsap.from(".service-card", {
+                scrollTrigger: {
+                    trigger: "#sectors",
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 80,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power3.out"
+            });
+
+            // Methodology Cards with Scale
+            gsap.from("#methodology .service-card", {
+                scrollTrigger: {
+                    trigger: "#methodology",
+                    start: "top 75%",
+                    toggleActions: "play none none none"
+                },
+                scale: 0.8,
+                opacity: 0,
+                y: 50,
+                duration: 0.9,
+                stagger: 0.2,
+                ease: "back.out(1.2)"
+            });
+
+            // Value Delivery Rows - Slide from left
+            gsap.from(".project-row", {
+                scrollTrigger: {
+                    trigger: "#value",
+                    start: "top 70%",
+                    toggleActions: "play none none none"
+                },
+                x: -100,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+
+            // Animate section numbers
+            document.querySelectorAll('.font-mono.text-aitron_secondary').forEach((num, index) => {
+                gsap.from(num, {
+                    scrollTrigger: {
+                        trigger: num,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    scale: 0,
+                    rotation: 360,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: "back.out(2)"
+                });
+            });
+
+            // Animate tags/badges with pop effect
+            gsap.from(".service-card .flex.flex-wrap span", {
+                scrollTrigger: {
+                    trigger: "#sectors",
+                    start: "top 70%",
+                    toggleActions: "play none none none"
+                },
+                scale: 0,
+                opacity: 0,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "back.out(3)",
+                delay: 0.5
+            });
+
+            // Footer animation
+            gsap.from("footer h2", {
+                scrollTrigger: {
+                    trigger: "footer",
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+
+            gsap.from("footer .grid > div", {
+                scrollTrigger: {
+                    trigger: "footer",
+                    start: "top 70%",
+                    toggleActions: "play none none none"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                delay: 0.3
             });
         };
 
