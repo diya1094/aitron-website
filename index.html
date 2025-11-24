@@ -42,11 +42,24 @@
                     },
                     animation: {
                         'marquee': 'marquee 25s linear infinite',
+                        'text-slide': 'slide-up 10s cubic-bezier(0.83, 0, 0.17, 1) infinite', // 4 phrases * 2.5s each = 10s
                     },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
                             '100%': { transform: 'translateX(-100%)' },
+                        },
+                        // Keyframes for rotating phrases (0% starts at top, 100% completes cycle)
+                        'slide-up': {
+                            '0%': { transform: 'translateY(0%)' },
+                            '20%': { transform: 'translateY(0%)' }, // Pause on phrase 1
+                            '25%': { transform: 'translateY(-25%)' },
+                            '45%': { transform: 'translateY(-25%)' }, // Pause on phrase 2
+                            '50%': { transform: 'translateY(-50%)' },
+                            '70%': { transform: 'translateY(-50%)' }, // Pause on phrase 3
+                            '75%': { transform: 'translateY(-75%)' },
+                            '95%': { transform: 'translateY(-75%)' }, // Pause on phrase 4
+                            '100%': { transform: 'translateY(0%)' }, // Cycle back to start
                         }
                     }
                 }
@@ -108,17 +121,21 @@
         .text-stroke-only {
             /* Now solid black for maximum visibility on white background */
             -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); 
-            color: var(--tw-colors-dark_text); /* Change from transparent to black */
+            color: var(--tw-colors-dark_text); /* Solid black */
         }
         /* Hover effect for main name */
         .hero-name:hover .text-stroke-only {
-            /* Keep hover minimal since it's already black */
             color: var(--tw-colors-aitron_secondary);
             -webkit-text-stroke: 0px;
         }
-        /* Mix blend difference for nav on hero */
-        .mix-blend-difference {
-             mix-blend-mode: normal; 
+        /* Text rotator container and list item styles */
+        .text-rotator-container {
+            height: 0.85em; /* Match h1 line height */
+            overflow: hidden;
+            line-height: 0.85; /* Match h1 line height */
+        }
+        .text-rotator-list {
+            animation: text-slide 10s cubic-bezier(0.83, 0, 0.17, 1) infinite;
         }
     </style>
 </head>
@@ -152,8 +169,16 @@
                 </div>
 
                 <h1 class="hero-name font-sans font-bold text-[10vw] md:text-[8vw] lg:text-[7vw] leading-[0.85] tracking-tighter mb-8 uppercase cursor-default transition-all duration-500 max-w-7xl text-dark_text">
-                    <span class="reveal-text block hover:text-aitron_accent transition-colors">POWERING</span>
-                    <span class="reveal-text block text-stroke-only transition-all duration-500">SMART INFRASTRUCTURE</span>
+                    <span class="reveal-text block hover:text-aitron_accent transition-colors">REDUCE OPERATIONAL COST DRAIN</span>
+                    
+                    <div class="text-rotator-container reveal-text">
+                        <ul class="text-rotator-list list-none p-0 m-0">
+                            <li class="block text-stroke-only transition-all duration-500">PER ROOM FOR HOTEL</li>
+                            <li class="block text-stroke-only transition-all duration-500">PER BED FOR HOSPITAL</li>
+                            <li class="block text-stroke-only transition-all duration-500">PER TONNE FOR CEMENT INDUSTRY</li>
+                            <li class="block text-stroke-only transition-all duration-500">PER TONNE FOR CHEMICAL INDUSTRY</li>
+                        </ul>
+                    </div>
                 </h1>
 
                 <div class="flex flex-col md:flex-row gap-10 mt-8">
