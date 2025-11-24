@@ -106,11 +106,13 @@
         }
         /* Stroke Text Utility */
         .text-stroke-only {
+            /* Now solid black for maximum visibility on white background */
             -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); 
-            color: transparent;
+            color: var(--tw-colors-dark_text); /* Change from transparent to black */
         }
         /* Hover effect for main name */
         .hero-name:hover .text-stroke-only {
+            /* Keep hover minimal since it's already black */
             color: var(--tw-colors-aitron_secondary);
             -webkit-text-stroke: 0px;
         }
@@ -455,27 +457,19 @@
         }
         
         void main() {
-            // Simple dynamic pattern for AI structure look
             float structure = smoothstep(0.3, 0.5, sin(vPosition.x * 5.0 + uTime * 2.0) + cos(vPosition.y * 5.0));
-        
-            // Lighting (adjusted for a light background)
             vec3 viewDirection = normalize(cameraPosition - vPosition);
             vec3 lightDir = normalize(uLightPos - vPosition);
             float diff = max(dot(vNormal, lightDir), 0.0);
-        
-            // Fresnel Rim Light (AI Energy Glow)
             float fresnel = pow(1.0 - dot(vNormal, viewDirection), 3.0);
-        
-            // Dither Application - more subtle for a light theme
-            float brightness = diff * 0.1 + 0.1 + structure * 0.05; // Less aggressive brightness
+            
+            float brightness = diff * 0.1 + 0.1 + structure * 0.05; 
             float finalDither = dither4x4(gl_FragCoord.xy, brightness);
         
-            // Color Logic: Use the base color (uColor, which is Cyan) only if the dither passes the threshold
             vec3 baseColor = uColor;
             vec3 finalColor = mix(vec3(0.0), baseColor, finalDither);
         
-            // Add Atmosphere Glow (Cyan)
-            finalColor += vec3(0.0, 0.5, 0.7) * fresnel * 0.3; // Subtler glow for light theme
+            finalColor += vec3(0.0, 0.5, 0.7) * fresnel * 0.3; 
         
             gl_FragColor = vec4(finalColor, 1.0);
         }
@@ -495,7 +489,6 @@
         uniform vec3 uColor;
 
         void main() {
-            // Create discrete "Data Packet" blocks moving along the arc
             float speed = 0.8;
             float travel = mod(vUv.x * 8.0 - (uTime * speed * 10.0), 8.0);
             float block = step(0.6, fract(travel));
