@@ -41,23 +41,11 @@
                     },
                     animation: {
                         'marquee': 'marquee 25s linear infinite',
-                        'text-slide': 'slide-up 10s cubic-bezier(0.83, 0, 0.17, 1) infinite',
                     },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
                             '100%': { transform: 'translateX(-100%)' },
-                        },
-                        'slide-up': {
-                            '0%': { transform: 'translateY(0%)' },
-                            '20%': { transform: 'translateY(0%)' },
-                            '25%': { transform: 'translateY(-25%)' },
-                            '45%': { transform: 'translateY(-25%)' },
-                            '50%': { transform: 'translateY(-50%)' },
-                            '70%': { transform: 'translateY(-50%)' },
-                            '75%': { transform: 'translateY(-75%)' },
-                            '95%': { transform: 'translateY(-75%)' },
-                            '100%': { transform: 'translateY(0%)' },
                         }
                     }
                 }
@@ -109,12 +97,6 @@
             background: rgba(0, 184, 217, 0.05);
             transform: translateY(-5px);
         }
-        /* Marquee */
-        .marquee-content {
-            display: flex;
-            gap: 4rem;
-            white-space: nowrap;
-        }
         /* Stroke Text Utility */
         .text-stroke-only {
             -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); 
@@ -125,15 +107,28 @@
             color: var(--tw-colors-aitron_secondary);
             -webkit-text-stroke: 0px;
         }
-        /* Text rotator container and list item styles */
+        /* --- Text Rotator Fix --- */
         .text-rotator-container {
-            /* Fix: Explicitly set height based on the h1 font size (7vw) to mask correctly */
+            /* Ensures the container height matches the single line of text */
             height: 0.85em; 
             overflow: hidden;
             line-height: 0.85; 
         }
         .text-rotator-list {
-            animation: text-slide 10s cubic-bezier(0.83, 0, 0.17, 1) infinite;
+            /* Animation applied via CSS */
+            animation: slide-up 10s cubic-bezier(0.83, 0, 0.17, 1) infinite;
+        }
+        @keyframes slide-up {
+            /* 4 Phrases * 2.5s each = 10s cycle */
+            0% { transform: translateY(0%); }
+            20% { transform: translateY(0%); } 
+            25% { transform: translateY(-25%); }
+            45% { transform: translateY(-25%); } 
+            50% { transform: translateY(-50%); }
+            70% { transform: translateY(-50%); } 
+            75% { transform: translateY(-75%); }
+            95% { transform: translateY(-75%); } 
+            100% { transform: translateY(0%); }
         }
     </style>
 </head>
@@ -166,7 +161,7 @@
                     </p>
                 </div>
 
-                <h1 class="hero-name font-sans font-bold text-[9vw] md:text-[8vw] lg:text-[7vw] leading-[0.85] tracking-tighter mb-8 uppercase cursor-default transition-all duration-500 max-w-7xl text-dark_text">
+                <h1 class="hero-name font-sans font-bold text-[5vw] md:text-[5vw] lg:text-[5vw] leading-[0.85] tracking-tighter mb-8 uppercase cursor-default transition-all duration-500 max-w-7xl text-dark_text">
                     <span class="reveal-text block hover:text-aitron_accent transition-colors">REDUCE OPERATIONAL COST DRAIN</span>
                     
                     <div class="text-rotator-container reveal-text">
