@@ -12,7 +12,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght=300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -27,11 +27,14 @@
             theme: {
                 extend: {
                     colors: {
-                        void: '#030303',
-                        aitron_accent: '#00E5FF', // Electric Cyan (Primary Accent)
-                        aitron_secondary: '#FF4D00', // Hyper Orange (Highlight/Action)
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        border: 'rgba(255, 255, 255, 0.15)'
+                        // Inverted Colors for Light Theme
+                        white_bg: '#FFFFFF', 
+                        dark_text: '#1a1a1a', 
+                        light_border: 'rgba(0, 0, 0, 0.1)', 
+                        aitron_accent: '#00B8D9', // Cyan
+                        aitron_secondary: '#FF6F00', // Orange
+                        light_gray_bg: '#f8f8f8', 
+                        light_card_bg: 'rgba(255, 255, 255, 0.7)', 
                     },
                     fontFamily: {
                         mono: ['"JetBrains Mono"', 'monospace'],
@@ -52,8 +55,8 @@
     </script>
     <style>
         body {
-            background-color: #030303;
-            color: #e0e0e0;
+            background-color: var(--tw-colors-white_bg);
+            color: var(--tw-colors-dark_text);
             overflow-x: hidden;
         }
         /* Lenis Smooth Scroll Recommended CSS */
@@ -67,9 +70,9 @@
             width: 100%;
             height: 100vh;
             z-index: -1;
-            opacity: 0.8;
+            opacity: 0.5; 
         }
-        /* Grid Background - Cyan Grid */
+        /* Grid Background - Light Gray Grid */
         .grid-bg {
             position: fixed;
             top: 0;
@@ -77,21 +80,22 @@
             width: 100%;
             height: 100%;
             background-image:
-                linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: -2;
             pointer-events: none;
         }
         /* Service Card Styling */
         .service-card {
-            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
-            backdrop-filter: blur(5px);
+            background: var(--tw-colors-light_card_bg); 
+            border: 1px solid var(--tw-colors-light_border);
+            backdrop-filter: blur(8px);
             transition: all 0.3s ease-out;
         }
         .service-card:hover {
-            border-color: #00E5FF;
-            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--tw-colors-aitron_accent);
+            background: rgba(0, 184, 217, 0.05);
             transform: translateY(-5px);
         }
         /* Marquee */
@@ -102,30 +106,34 @@
         }
         /* Stroke Text Utility */
         .text-stroke-only {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); 
             color: transparent;
         }
         /* Hover effect for main name */
         .hero-name:hover .text-stroke-only {
-            color: #FF4D00;
+            color: var(--tw-colors-aitron_secondary);
             -webkit-text-stroke: 0px;
+        }
+        /* Mix blend difference for nav on hero */
+        .mix-blend-difference {
+             mix-blend-mode: normal; 
         }
     </style>
 </head>
-<body class="antialiased selection:bg-aitron_accent selection:text-void">
+<body class="antialiased selection:bg-aitron_secondary selection:text-white">
     <div class="grid-bg"></div>
     <div id="canvas-container"></div>
 
-    <nav class="fixed w-full z-40 top-0 left-0 p-6 flex justify-between items-center mix-blend-difference" role="navigation">
-        <div class="font-mono text-sm tracking-tighter font-bold">
-            AITRON<span class="text-aitron_accent">_INFRA</span>
+    <nav class="fixed w-full z-40 top-0 left-0 p-6 flex justify-between items-center bg-white_bg/80 backdrop-blur-sm shadow-sm" role="navigation">
+        <div class="font-mono text-sm tracking-tighter font-bold text-dark_text">
+            AITRON
         </div>
-        <div class="hidden md:flex gap-8 font-mono text-xs font-bold">
+        <div class="hidden md:flex gap-8 font-mono text-xs font-bold text-dark_text">
             <a href="#services" class="hover:text-aitron_accent transition-colors">[ CORE_OFFERINGS ]</a>
             <a href="#methodology" class="hover:text-aitron_accent transition-colors">[ METHODOLOGY ]</a>
             <a href="#value" class="hover:text-aitron_accent transition-colors">[ VALUE_DELIVERY ]</a>
         </div>
-        <a href="#contact" class="border border-white/20 px-4 py-2 font-mono text-xs hover:bg-aitron_accent hover:text-void hover:border-aitron_accent transition-all duration-300">
+        <a href="#contact" class="border border-dark_text/20 px-4 py-2 font-mono text-xs text-dark_text hover:bg-aitron_accent hover:text-white_bg hover:border-aitron_accent transition-all duration-300">
             BOOK_A_DEMO
         </a>
     </nav>
@@ -136,36 +144,36 @@
             <div class="max-w-6xl z-10 relative">
                 <div class="flex items-center gap-3 mb-8 reveal-text">
                     <div class="w-2 h-2 bg-aitron_accent animate-pulse" aria-hidden="true"></div>
-                    <p class="font-mono text-aitron_accent text-sm tracking-widest">
+                    <p class="font-mono text-aitron_accent text-sm tracking-widest text-dark_text">
                         PREDICTIVE MAINTENANCE & COST OPTIMIZATION
                     </p>
                 </div>
 
-                <h1 class="hero-name font-sans font-bold text-[12vw] leading-[0.85] tracking-tighter mb-8 uppercase cursor-default transition-all duration-500">
+                <h1 class="hero-name font-sans font-bold text-[10vw] md:text-[8vw] lg:text-[7vw] leading-[0.85] tracking-tighter mb-8 uppercase cursor-default transition-all duration-500 max-w-7xl text-dark_text">
                     <span class="reveal-text block hover:text-aitron_accent transition-colors">POWERING</span>
-                    <span class="reveal-text block text-stroke-only transition-all duration-500">SMART_INFRASTRUCTURE</span>
+                    <span class="reveal-text block text-stroke-only transition-all duration-500">SMART INFRASTRUCTURE</span>
                 </h1>
 
                 <div class="flex flex-col md:flex-row gap-10 mt-8">
-                    <p class="font-mono text-sm md:text-base text-gray-400 max-w-lg leading-relaxed reveal-text border-l-2 border-aitron_secondary pl-6">
+                    <p class="font-mono text-sm md:text-base text-gray-700 max-w-lg leading-relaxed reveal-text border-l-2 border-aitron_secondary pl-6">
                         We help your team see, fix, and save—before things break. Deliver the intelligence your Operations & Maintenance team has always deserved.
                     </p>
 
                     <div class="flex flex-col gap-4 reveal-text justify-center">
-                        <a href="#services" class="group flex items-center gap-4 font-mono text-sm font-bold hover:text-aitron_secondary transition-colors">
-                            <span class="w-8 h-[1px] bg-white group-hover:bg-aitron_secondary transition-colors"></span>
+                        <a href="#services" class="group flex items-center gap-4 font-mono text-sm font-bold hover:text-aitron_secondary transition-colors text-dark_text">
+                            <span class="w-8 h-[1px] bg-dark_text group-hover:bg-aitron_secondary transition-colors"></span>
                             VIEW OFFERINGS
                         </a>
-                        <a href="#contact" class="group flex items-center gap-4 font-mono text-sm font-bold hover:text-aitron_secondary transition-colors">
-                            <span class="w-8 h-[1px] bg-white group-hover:bg-aitron_secondary transition-colors"></span>
+                        <a href="#contact" class="group flex items-center gap-4 font-mono text-sm font-bold hover:text-aitron_secondary transition-colors text-dark_text">
+                            <span class="w-8 h-[1px] bg-dark_text group-hover:bg-aitron_secondary transition-colors"></span>
                             BOOK A DEMO
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="absolute bottom-0 left-0 w-full border-y border-white/10 bg-void/50 backdrop-blur-md py-4 overflow-hidden z-20">
-                <div class="marquee-content animate-marquee font-mono text-xs text-gray-400 items-center">
+            <div class="absolute bottom-0 left-0 w-full border-y border-light_border bg-white_bg/50 backdrop-blur-md py-4 overflow-hidden z-20">
+                <div class="marquee-content animate-marquee font-mono text-xs text-gray-600 items-center">
                     <span>REAL-TIME MONITORING</span>
                     <span>+++</span>
                     <span>PREDICTIVE MAINTENANCE</span>
@@ -183,92 +191,92 @@
             </div>
         </section>
 
-        <section id="services" class="py-32 px-6 md:px-24 border-t border-white/10 relative bg-void/80 backdrop-blur-sm" aria-label="Core Capabilities">
+        <section id="services" class="py-32 px-6 md:px-24 border-t border-light_border relative bg-light_gray_bg/80 backdrop-blur-sm" aria-label="Core Capabilities">
             <div class="mb-20">
                 <div class="font-mono text-aitron_accent text-xs mb-2">01 / OFFERINGS</div>
-                <h2 class="font-sans text-4xl md:text-6xl mb-4">WHAT WE OFFER</h2>
+                <h2 class="font-sans text-4xl md:text-6xl mb-4 text-dark_text">WHAT WE OFFER</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">⚡</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">Smart Monitoring</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Smart Monitoring</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Gain live data from electrical panels, MFMs, and connected assets to enable continuous performance tracking.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">REAL-TIME DATA</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">ASSET TRACKING</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">REAL-TIME DATA</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">ASSET TRACKING</span>
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🧠</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">Predictive Maintenance</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Predictive Maintenance</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Utilize AI-powered insights to predict faults and anomalies, reducing unplanned outages and costly repairs.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">AI FAULT PREDICTION</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">UPTIME MAXIMIZATION</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">AI FAULT PREDICTION</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">UPTIME MAXIMIZATION</span>
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">💰</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">Energy Optimization</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Energy Optimization</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Leverage analytics to identify energy-saving opportunities and reduce operational costs across all facilities.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">COST REDUCTION</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">ESG GOALS</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">COST REDUCTION</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">ESG GOALS</span>
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🔔</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">Digital SOPs & Alerting</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Digital SOPs & Alerting</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Replace manual logs with digital workflows. Trigger real-time alerts for faster response and audit-readiness.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">AUDIT-READY</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">AUTOMATED WORKFLOWS</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">AUDIT-READY</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">AUTOMATED WORKFLOWS</span>
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🖥️</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">Operational Dashboards</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Operational Dashboards</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Role-based dashboards provide energy usage, cost trends, and operational status tailored for every team level.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">ROLE-BASED VIEWS</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">ANALYTICS</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">ROLE-BASED VIEWS</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">ANALYTICS</span>
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
                     <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🆔</div>
-                    <h3 class="font-sans text-3xl mb-4 text-white mt-4">QR-Based Intelligence</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed mb-6">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">QR-Based Intelligence</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
                         Track AMCs, maintenance schedules, and asset history through an intuitive QR-tagging system.
                     </p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">ASSET HISTORY</span>
-                        <span class="px-2 py-1 border border-white/10 text-[10px] font-mono text-aitron_accent">MAINTENANCE SCHEDULING</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">ASSET HISTORY</span>
+                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">MAINTENANCE SCHEDULING</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="methodology" class="py-32 px-6 md:px-24 border-t border-white/10 relative bg-void/80 backdrop-blur-sm" aria-label="Aitron Implementation Methodology">
+        <section id="methodology" class="py-32 px-6 md:px-24 border-t border-light_border relative bg-light_gray_bg/80 backdrop-blur-sm" aria-label="Aitron Implementation Methodology">
             <div class="mb-20 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div>
                     <div class="font-mono text-aitron_accent text-xs mb-2">02 / PROCESS</div>
-                    <h2 class="font-sans text-4xl md:text-6xl mb-4">UNLOCK SMARTER INFRASTRUCTURE</h2>
+                    <h2 class="font-sans text-4xl md:text-6xl mb-4 text-dark_text">UNLOCK SMARTER INFRASTRUCTURE</h2>
                 </div>
                 <div class="font-mono text-xs text-gray-500 text-right hidden md:block">
                      MODERNIZE WITHOUT DISRUPTION.<br>
@@ -277,105 +285,105 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="service-card border border-border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
                     <span class="font-mono text-aitron_secondary text-4xl mb-4 block">01</span>
-                    <h3 class="font-sans text-3xl mb-4 text-white">Quick Assessment</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed border-l border-gray-700 pl-4">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text">Quick Assessment</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed border-l border-gray-400 pl-4">
                         Pinpoint inefficiencies and hidden costs in your existing electrical systems. AITRON's no-hardware diagnostic identifies areas for rapid ROI.
                     </p>
-                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-white transition-colors">
+                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-dark_text transition-colors">
                         > Rapid ROI identification
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
                     <span class="font-mono text-aitron_secondary text-4xl mb-4 block">02</span>
-                    <h3 class="font-sans text-3xl mb-4 text-white">Pilot a Smarter Way</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed border-l border-gray-700 pl-4">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text">Pilot a Smarter Way</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed border-l border-gray-400 pl-4">
                         Deploy AITRON in one building or cluster. Monitor real-time data, detect anomalies, and automate processes without changing core infrastructure.
                     </p>
-                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-white transition-colors">
+                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-dark_text transition-colors">
                         > See measurable results in days, not months
                     </div>
                 </div>
 
-                <div class="service-card border border-border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
+                <div class="service-card border p-8 md:p-12 relative overflow-hidden group h-full transition-all duration-300">
                     <span class="font-mono text-aitron_secondary text-4xl mb-4 block">03</span>
-                    <h3 class="font-sans text-3xl mb-4 text-white">Scale with Confidence</h3>
-                    <p class="font-mono text-xs text-gray-400 leading-relaxed border-l border-gray-700 pl-4">
+                    <h3 class="font-sans text-3xl mb-4 text-dark_text">Scale with Confidence</h3>
+                    <p class="font-mono text-xs text-gray-700 leading-relaxed border-l border-gray-400 pl-4">
                         Expand smart operations across facilities, campuses, or regions. Designed to scale effortlessly—from 5 to 500+ panels.
                     </p>
-                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-white transition-colors">
+                    <div class="mt-6 font-mono text-xs text-gray-500 group-hover:text-dark_text transition-colors">
                         > Security, compliance, and customization at the core
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="value" class="py-32 bg-void relative" aria-label="Value Delivery and Differentiation">
+        <section id="value" class="py-32 bg-white_bg relative" aria-label="Value Delivery and Differentiation">
             <div class="px-6 md:px-24 mb-16">
                 <div class="font-mono text-aitron_accent text-xs mb-2">03 / BUSINESS CASE</div>
-                <h2 class="font-sans text-4xl md:text-6xl mb-4">AITRON DIFFERENTIATION & VALUE</h2>
+                <h2 class="font-sans text-4xl md:text-6xl mb-4 text-dark_text">AITRON DIFFERENTIATION & VALUE</h2>
             </div>
 
-            <div class="border-y border-white/10">
-                <div class="project-row group border-b border-white/10 p-8 md:px-24 hover:bg-white/5 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="border-y border-light_border">
+                <div class="project-row group border-b border-light_border p-8 md:px-24 hover:bg-light_gray_bg transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex flex-col gap-2">
                         <div class="flex items-center gap-4">
                             <span class="font-mono text-aitron_secondary text-sm" aria-hidden="true">01</span>
-                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300">Cut Downtime & Energy Waste</h3>
+                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300 text-dark_text">Cut Downtime & Energy Waste</h3>
                         </div>
-                        <p class="font-mono text-xs text-gray-500 md:pl-10 max-w-md">
+                        <p class="font-mono text-xs text-gray-700 md:pl-10 max-w-md">
                             No heavy replacement needed, just smart upgrades. Extend the life of your assets and cut down on emergency costs.
                         </p>
                     </div>
-                    <div class="flex gap-2 font-mono text-[10px] text-gray-400 uppercase">
-                        <span class="border border-gray-800 px-2 py-1">SAVE MORE</span>
-                        <span class="border border-gray-800 px-2 py-1">PROTECT LONGER</span>
+                    <div class="flex gap-2 font-mono text-[10px] text-gray-600 uppercase">
+                        <span class="border border-gray-300 px-2 py-1">SAVE MORE</span>
+                        <span class="border border-gray-300 px-2 py-1">PROTECT LONGER</span>
                     </div>
                 </div>
 
-                <div class="project-row group border-b border-white/10 p-8 md:px-24 hover:bg-white/5 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="project-row group border-b border-light_border p-8 md:px-24 hover:bg-light_gray_bg transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex flex-col gap-2">
                         <div class="flex items-center gap-4">
                             <span class="font-mono text-aitron_secondary text-sm">02</span>
-                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300">Sectoral Expertise</h3>
+                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300 text-dark_text">Sectoral Expertise</h3>
                         </div>
-                        <p class="font-mono text-xs text-gray-500 md:pl-10 max-w-md">
+                        <p class="font-mono text-xs text-gray-700 md:pl-10 max-w-md">
                             Delivering value across Hospitals, Data Centers, Corporates, Retail, Warehouses, Education, and Government facilities.
                         </p>
                     </div>
-                    <div class="flex gap-2 font-mono text-[10px] text-gray-400 uppercase flex-wrap">
-                        <span class="border border-gray-800 px-2 py-1">HOSPITALS</span>
-                        <span class="border border-gray-800 px-2 py-1">DATA CENTERS</span>
-                        <span class="border border-gray-800 px-2 py-1">RETAIL</span>
+                    <div class="flex gap-2 font-mono text-[10px] text-gray-600 uppercase flex-wrap">
+                        <span class="border border-gray-300 px-2 py-1">HOSPITALS</span>
+                        <span class="border border-gray-300 px-2 py-1">DATA CENTERS</span>
+                        <span class="border border-gray-300 px-2 py-1">RETAIL</span>
                     </div>
                 </div>
 
-                <div class="project-row group border-b border-white/10 p-8 md:px-24 hover:bg-white/5 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="project-row group border-b border-light_border p-8 md:px-24 hover:bg-light_gray_bg transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex flex-col gap-2">
                         <div class="flex items-center gap-4">
                             <span class="font-mono text-aitron_secondary text-sm">03</span>
-                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300">Future-Ready Intelligence</h3>
+                            <h3 class="font-sans text-4xl group-hover:translate-x-2 transition-transform duration-300 text-dark_text">Future-Ready Intelligence</h3>
                         </div>
-                        <p class="font-mono text-xs text-gray-500 md:pl-10 max-w-md">
+                        <p class="font-mono text-xs text-gray-700 md:pl-10 max-w-md">
                             Catch problems before they slow you down. See everything, always. Make better decisions instantly.
                         </p>
                     </div>
-                    <div class="flex gap-2 font-mono text-[10px] text-gray-400 uppercase">
-                        <span class="border border-gray-800 px-2 py-1">KNOW SOONER</span>
-                        <span class="border border-gray-800 px-2 py-1">MOVE FASTER</span>
+                    <div class="flex gap-2 font-mono text-[10px] text-gray-600 uppercase">
+                        <span class="border border-gray-300 px-2 py-1">KNOW SOONER</span>
+                        <span class="border border-gray-300 px-2 py-1">MOVE FASTER</span>
                     </div>
                 </div>
             </div>
         </section>
 
 
-        <footer id="contact" class="min-h-[70vh] flex flex-col justify-between p-6 md:px-24 py-20 bg-aitron_accent text-void relative overflow-hidden">
-            <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyIiBoZWlnaHQ9IjIiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiLz48L3N2Zz4=')]"></div>
+        <footer id="contact" class="min-h-[70vh] flex flex-col justify-between p-6 md:px-24 py-20 bg-aitron_accent text-white_bg relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyIiBoZWlnaHQ9IjIiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNGRkYiLz48L3N2Zz4=')]"></div>
 
             <div class="relative z-10">
-                <p class="font-mono text-sm tracking-widest border-b border-void/20 pb-4 inline-block w-full">
+                <p class="font-mono text-sm tracking-widest border-b border-white_bg/20 pb-4 inline-block w-full">
                     // INITIATE_HANDSHAKE
                 </p>
                 <h2 class="font-sans text-6xl md:text-9xl tracking-tighter leading-none mt-10 font-bold">
@@ -428,7 +436,7 @@
         varying vec3 vNormal;
         varying vec3 vPosition;
         varying vec2 vUv;
-
+        
         // Dither function for retro screen look
         float dither4x4(vec2 position, float brightness) {
             int x = int(mod(position.x, 4.0));
@@ -445,28 +453,30 @@
             if (index == 14) limit = 0.875; if (index == 15) limit = 0.375;
             return brightness < limit ? 0.0 : 1.0;
         }
-
+        
         void main() {
             // Simple dynamic pattern for AI structure look
             float structure = smoothstep(0.3, 0.5, sin(vPosition.x * 5.0 + uTime * 2.0) + cos(vPosition.y * 5.0));
-
-            // Lighting
+        
+            // Lighting (adjusted for a light background)
             vec3 viewDirection = normalize(cameraPosition - vPosition);
             vec3 lightDir = normalize(uLightPos - vPosition);
             float diff = max(dot(vNormal, lightDir), 0.0);
-
+        
             // Fresnel Rim Light (AI Energy Glow)
             float fresnel = pow(1.0 - dot(vNormal, viewDirection), 3.0);
-
-            // Dither Application
-            float brightness = diff * 0.4 + 0.3 + structure * 0.3;
+        
+            // Dither Application - more subtle for a light theme
+            float brightness = diff * 0.1 + 0.1 + structure * 0.05; // Less aggressive brightness
             float finalDither = dither4x4(gl_FragCoord.xy, brightness);
-
-            vec3 finalColor = mix(vec3(0.0), uColor, finalDither);
-
+        
+            // Color Logic: Use the base color (uColor, which is Cyan) only if the dither passes the threshold
+            vec3 baseColor = uColor;
+            vec3 finalColor = mix(vec3(0.0), baseColor, finalDither);
+        
             // Add Atmosphere Glow (Cyan)
-            finalColor += vec3(0.0, 0.8, 1.0) * fresnel * 0.5;
-
+            finalColor += vec3(0.0, 0.5, 0.7) * fresnel * 0.3; // Subtler glow for light theme
+        
             gl_FragColor = vec4(finalColor, 1.0);
         }
     </script>
@@ -530,32 +540,32 @@
                 vertexShader: document.getElementById('vertexShader').textContent,
                 fragmentShader: document.getElementById('fragmentShader').textContent,
                 uniforms: {
-                    uColor: { value: new THREE.Color('#00E5FF') }, // ELECTRIC CYAN HUB
+                    uColor: { value: new THREE.Color('#00B8D9') }, // LIGHT THEME CYAN
                     uLightPos: { value: new THREE.Vector3(10, 5, 5) },
                     uTime: { value: 0.0 }
                 },
-                wireframe: true // Looks high-tech/holographic
+                wireframe: true 
             });
 
-            // CHANGED to IcosahedronGeometry (20 faces, highly connected, looks like a hub)
+            // IcosahedronGeometry for the Hub object
             const coreGeometry = new THREE.IcosahedronGeometry(2, 1);
             const coreMesh = new THREE.Mesh(coreGeometry, aiCoreMaterial);
             scene.add(coreMesh);
 
-            // --- 2. Data Flow Arcs (HYPER ORANGE) ---
+            // --- 2. Data Flow Arcs (ORANGE) ---
             const arcsGroup = new THREE.Group();
             const arcMaterial = new THREE.ShaderMaterial({
                 vertexShader: document.getElementById('arcVertexShader').textContent,
                 fragmentShader: document.getElementById('arcFragmentShader').textContent,
                 uniforms: {
-                    uColor: { value: new THREE.Color('#FF4D00') }, // HYPER ORANGE DATA FLOW
+                    uColor: { value: new THREE.Color('#FF6F00') }, // LIGHT THEME ORANGE
                     uTime: { value: 0.0 }
                 },
                 transparent: true,
                 side: THREE.DoubleSide
             });
 
-            // Function to get a random point on the Icosahedron's bounding sphere
+            // Function to get a random point on the Hub's bounding sphere
             const getPointOnSphere = (radius) => {
                 const phi = Math.acos(-1 + (2 * Math.random()));
                 const theta = Math.sqrt(Math.PI * 250) * phi;
@@ -586,7 +596,7 @@
             }
             nodesGeo.setAttribute('position', new THREE.Float32BufferAttribute(nodePositions, 3));
             const nodesMaterial = new THREE.PointsMaterial({
-                color: 0x00E5FF, // Cyan Nodes
+                color: 0x00B8D9, // Cyan Nodes
                 size: 0.08,
                 transparent: true,
                 opacity: 0.8
@@ -594,7 +604,7 @@
             const nodesMesh = new THREE.Points(nodesGeo, nodesMaterial);
             coreMesh.add(nodesMesh);
 
-            // --- 4. Starfield ---
+            // --- 4. Starfield (using dark color for contrast on white) ---
             const starGeo = new THREE.BufferGeometry();
             const starCount = 1500;
             const starPos = new Float32Array(starCount * 3);
@@ -603,7 +613,7 @@
             }
             starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
             const starMat = new THREE.PointsMaterial({
-                color: 0x444444,
+                color: 0x999999, // Gray stars
                 size: 0.05,
                 transparent: true
             });
