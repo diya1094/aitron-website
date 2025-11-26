@@ -130,6 +130,60 @@
             0% { transform: translateY(0%); }
             100% { transform: translateY(-100%); }
         }
+        /* Cinematic single-video sector cards (enlarged videos, bottom text) */
+        .sector-video-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            min-height: 420px; /* larger visual */
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: stretch;
+            transition: transform 0.45s ease, box-shadow 0.45s ease;
+        }
+        .sector-video-card.is-playing {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+        .sector-video-card video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.04);
+            transition: transform 0.9s cubic-bezier(.2,.8,.2,1), filter 0.6s ease;
+            filter: brightness(0.72) saturate(0.98);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .sector-video-card.is-playing video { transform: scale(1.12); filter: brightness(0.56) saturate(1.02); }
+        .sector-video-card .card-content {
+            position: relative;
+            z-index: 3;
+            padding: 1.25rem 1.5rem 1.75rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* text positioned at bottom */
+            width: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 75%, rgba(0,0,0,0.7) 100%);
+            gap: .5rem;
+        }
+        .card-content h3 { font-size: 1.75rem; line-height: 1.05; margin: 0; }
+        .card-content p { font-size: 0.95rem; margin: 0; opacity: 0.95; }
+        .card-footer { display:flex; gap:.5rem; margin-top:.6rem; }
+        .card-footer .tag { background: rgba(255,255,255,0.06); padding: .25rem .5rem; font-size: .72rem; border-radius: 6px; }
+        .sector-video-card:hover video { transform: scale(1.14); filter: brightness(0.52) saturate(1.02); }
+        /* poster removed: using video element only */
+        @media (max-width: 1024px) {
+            .sector-video-card { min-height: 320px; }
+            .card-content h3 { font-size: 1.4rem; }
+        }
+        @media (max-width: 640px) {
+            .sector-video-card { min-height: 220px; }
+            .card-content { padding: 1rem; }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-aitron_secondary selection:text-white">
@@ -221,74 +275,72 @@
                 <h2 class="font-sans text-4xl md:text-6xl mb-4 text-dark_text">WHERE AITRON DELIVERS VALUE</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">💧</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Water</h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Optimizing pump and treatment systems for efficiency and leakage prevention.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">PUMP EFFICIENCY</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Water -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/water.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">💧</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Water</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Optimizing pump and treatment systems for efficiency and leakage prevention.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">PUMP EFFICIENCY</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">⚡</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Power</h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Predictive maintenance for generation, transmission, and distribution assets to ensure grid stability.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">GRID STABILITY</span>
+                <!-- Power -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/power.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">⚡</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Power</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Predictive maintenance for generation, transmission, and distribution assets to ensure grid stability.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">GRID STABILITY</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🏗️</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Infrastructure</h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Asset monitoring for roads, ports, and public utilities to maximize lifespan and uptime.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">PUBLIC UTILITIES</span>
+                <!-- Infrastructure -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/infrastructure.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">🏗️</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Infrastructure</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Asset monitoring for roads, ports, and public utilities to maximize lifespan and uptime.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">PUBLIC UTILITIES</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🛎️</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Hotels & Hospitals </h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Critical equipment monitoring and continuous power oversight for patient safety.
-                        Energy cost management and HVAC reliability for guest comfort and reduced expenses.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">HVAC RELIABILITY</span>
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">CRITICAL POWER</span>
+                <!-- Hotels & Hospitals -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/hotels&hospitals.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">🛎️</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Hotels & Hospitals</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Critical equipment monitoring and continuous power oversight for patient safety. Energy cost management and HVAC reliability for guest comfort.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">HVAC RELIABILITY</span><span class="px-2 py-1 border border-light_border text-[10px] font-mono">CRITICAL POWER</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🏭</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Industries</h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Optimizing large-scale plant operations, focusing on asset health and production throughput.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">PLANT OPTIMIZATION</span>
+                <!-- Industries -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/industries.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">🏭</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Industries</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Optimizing large-scale plant operations, focusing on asset health and production throughput.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">PLANT OPTIMIZATION</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="service-card border p-8 relative overflow-hidden group h-full transition-all duration-300">
-                    <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-30 group-hover:opacity-100 transition-opacity">🏢</div>
-                    <h3 class="font-sans text-3xl mb-4 text-dark_text mt-4">Buildings</h3>
-                    <p class="font-mono text-xs text-gray-700 leading-relaxed mb-6">
-                        Energy efficiency and operational visibility for large corporate and commercial structures.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 border border-light_border text-[10px] font-mono text-dark_text">COMMERCIAL REALTY</span>
+                <!-- Buildings -->
+                <article class="sector-video-card border">
+                    <video class="sector-video" muted loop playsinline preload="none" data-src="/assets/videos/buildings.mp4"></video>
+                    <div class="card-content">
+                        <!-- <div class="absolute top-4 right-4 text-4xl text-aitron_accent opacity-80">🏢</div> -->
+                        <h3 class="font-sans text-3xl mb-2">Buildings</h3>
+                        <p class="font-mono text-xs leading-relaxed mb-4">Energy efficiency and operational visibility for large corporate and commercial structures.</p>
+                        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 border border-light_border text-[10px] font-mono">COMMERCIAL REALTY</span></div>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
@@ -696,5 +748,63 @@
             initAnimations(threeObj);
         });
     </script>
+    <script>
+        // Lazy-load sector videos and play/pause when in view (single autoplay per sector)
+        (function(){
+            const vids = document.querySelectorAll('.sector-video');
+            if (!vids || vids.length === 0) return;
+
+            const loadVideo = (video) => {
+                if (video.dataset.loaded) return;
+                const src = video.dataset.src;
+                if (!src) return;
+                // Create source element for better fallback handling
+                const source = document.createElement('source');
+                source.src = src;
+                source.type = 'video/mp4';
+                video.appendChild(source);
+                try { video.load(); } catch(e) {}
+                video.dataset.loaded = 'true';
+            };
+
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const v = entry.target;
+                    const card = v.closest('.sector-video-card');
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.45) {
+                        loadVideo(v);
+                        // ensure muted for autoplay
+                        v.muted = true;
+                        v.setAttribute('playsinline', '');
+                        const p = v.play();
+                        if (p && typeof p.then === 'function') {
+                            p.then(() => { if (card) card.classList.add('is-playing'); }).catch(()=>{});
+                        } else {
+                            if (card) card.classList.add('is-playing');
+                        }
+                    } else {
+                        try { v.pause(); } catch(e){}
+                        if (card) card.classList.remove('is-playing');
+                    }
+                });
+            }, { threshold: [0.45] });
+
+            vids.forEach(v => obs.observe(v));
+
+            // Pause all when tab hidden
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    vids.forEach(v => { try { v.pause(); } catch(e){} });
+                } else {
+                    vids.forEach(v => {
+                        const rect = v.getBoundingClientRect();
+                        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                        if (inView && v.dataset.loaded) v.play().catch(()=>{});
+                    });
+                }
+            });
+        })();
+    </script>
+    
 </body>
 </html>
